@@ -17,7 +17,9 @@ class RegisterController extends Controller {
 
             $user = User::create($data);
 
-            return redirect('/');
+            auth()->login($user);
+
+            return redirect('/profile');
         } catch (ValidationException $e) {
             return redirect()->back()->withInput($request->input())->withErrors($e->errors());
         }
