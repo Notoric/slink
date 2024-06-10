@@ -7,6 +7,22 @@
         @yield('head')
     </head>
     <body>
+        <header>
+            <div class="container">
+                <a id="logo" href="home">[Notoric]</a>
+                @if (Auth::check())
+                    <nav>
+                        <a href="profile"><img src="{{ asset('img/icons/profile.svg') }}"></a>
+                        <a href="logout"><img src="{{ asset('img/icons/logout.svg') }}"></a>
+                    </nav>
+                @else
+                    <nav>
+                        <a href="register">Register</a>
+                        <a href="login">Log In</a>
+                    </nav>
+                @endif
+            </div>
+        </header>
         <main>
             @yield('content')
         </main>

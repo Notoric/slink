@@ -9,25 +9,38 @@ Route::get('/', function () {
 });
 
 Route::get('/register', function () {
-    return view('register');
+    if (!auth()->check()) {
+        return view('register');
+    }
+    return view('profile');
 });
 
 Route::post('/register', [RegisterController::class, 'create']);
 
 Route::get('/login', function () {
-    return view('login');
+    if (!auth()->check()) {
+        return view('login');
+    }
+    return view('profile');
 });
 
 Route::post('/login', [LoginController::class, 'login']);
 
 Route::get('/logout', function () {
     auth()->logout();
-    return redirect('/');
+    return redirect('/home');
 });
 
 Route::get('/profile', function () {
     if (!auth()->check()) {
-        return redirect('/');
+        return redirect('/home');
     }
     return view('profile');
+});
+
+Route::get('/home', function () {
+    if (!auth()->check()) {
+        return view('home');
+    }
+    return view('home');
 });

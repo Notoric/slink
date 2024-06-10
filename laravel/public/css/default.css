@@ -1,0 +1,123 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+:root {
+    --primary: #ff0050;
+    --background: #121212;
+    --foreground: #202020;
+    --text: #bbb;
+}
+
+body {
+    margin: 0;
+    overflow: hidden;
+    font-family: 'Roboto', sans-serif;
+    background-color: var(--background);
+    color: white;
+}
+
+input:focus {
+    outline: none;
+}
+
+header {
+    background-color: var(--foreground);
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    font-size: 1.4em;
+    height: 60px;
+}
+
+header a {
+    color: white;
+    text-decoration: none;
+    margin-inline: 10px;
+}
+
+header a img {
+    width: 40px;
+    height: 40px;
+}
+
+header nav {
+    display: flex;
+    flex-direction: row;
+}
+
+header nav a {
+    display: flex;
+    align-items: center;
+}
+
+#logo {
+    font-size: 1.3em;
+    font-weight: bold;
+}
+
+.container {
+    width: 1100px;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 30px 50px;
+    background-color: var(--foreground);
+    width: fit-content;
+    margin: 10vh auto;
+    border-radius: 10px;
+    box-shadow: 3px 3px 10px 0 #0008;
+}
+
+.form-container form {
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+}
+
+.form-container form input {
+    color: var(--text);
+    background-color: #0000;
+    border: none;
+    border-bottom: 1px solid var(--primary);
+    font-size: 1.3em;
+    margin-bottom: 20px;
+}
+
+.form-container form label {
+    color: #666;
+    font-size: 0.8em;
+    margin-left: 2px;
+}
+
+.form-container form button {
+    margin-block: 10px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-size: 1em;
+    background-color: var(--primary);
+    transition: box-shadow 0.3s ease-out, background-color 0.3s ease-out;
+}
+
+.form-container button:hover {
+    box-shadow: 0px 0px 10px 0 #ff005080;
+}
+
+.form-container button:active {
+    background-color: #cc0035;
+}
+
+.form-container .error {
+    width: 280px;
+    color: red;
+    background: #ff000028;
+    border-radius: 5px;
+    padding: 10px;
+}
