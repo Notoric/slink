@@ -19,7 +19,7 @@ class RegisterController extends Controller {
 
             auth()->login($user);
 
-            return redirect('/profile');
+            return redirect('/home');
         } catch (ValidationException $e) {
             return redirect()->back()->withInput($request->input())->withErrors($e->errors());
         }

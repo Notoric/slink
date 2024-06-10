@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-    <div id="shortener-container">
+    <div id="banner-container">
         @if (auth()->check())
             <h1>Shorten your URL</h1>
             <form action="shorten" method="post">

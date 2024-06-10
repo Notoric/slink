@@ -19,6 +19,15 @@ input:focus {
     outline: none;
 }
 
+a {
+    color: var(--primary);
+    text-decoration: none;
+}
+
+h2 {
+    margin: 20px 0 0 10px;
+}
+
 header {
     background-color: var(--foreground);
     padding: 8px;
@@ -26,6 +35,15 @@ header {
     align-items: center;
     font-size: 1.4em;
     height: 60px;
+    box-shadow: 0px 3px 10px 0 #0008;
+    position: relative;
+    z-index: 2;
+}
+
+header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 header a {
@@ -57,9 +75,6 @@ header nav a {
 .container {
     width: 1100px;
     margin: auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
 }
 
 .form-container {
@@ -95,7 +110,7 @@ header nav a {
     margin-left: 2px;
 }
 
-.form-container form button {
+.form-container button, button[type="submit"] {
     margin-block: 10px;
     padding: 10px 20px;
     border: none;
@@ -106,11 +121,11 @@ header nav a {
     transition: box-shadow 0.3s ease-out, background-color 0.3s ease-out;
 }
 
-.form-container button:hover {
+.form-container button:hover, button[type="submit"]:hover {
     box-shadow: 0px 0px 10px 0 #ff005080;
 }
 
-.form-container button:active {
+.form-container button:active, button[type="submit"]:active {
     background-color: #cc0035;
 }
 
@@ -122,7 +137,7 @@ header nav a {
     padding: 10px;
 }
 
-#shortener-container {
+#banner-container {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -132,12 +147,17 @@ header nav a {
     gap: 40px;
 }
 
-#shortener-container h1 {
+#banner-container a {
+    color: white;
+    text-decoration: underline;
+}
+
+#banner-container h1 {
     font-size: 2.5em;
     color: white;
 }
 
-#shortener-container input {
+#banner-container input {
     color: black;
     background-color: #fff;
     border-radius: 5px;
@@ -149,7 +169,7 @@ header nav a {
     box-shadow: 2px 2px 5px 0 #0004;
 }
 
-#shortener-container button {
+#banner-container button {
     font-size: 1.3em;
     padding: 10px 20px;
     border: none;
@@ -159,6 +179,188 @@ header nav a {
     background-color: var(--foreground);
 }
 
-#shortener-container input::placeholder {
+#banner-container input::placeholder {
     color: #aaa;
+}
+
+#banner-container.container {
+    gap: 0;
+}
+
+#banner-container.container p, #banner-container.container h1 {
+    margin: 0;
+}
+
+#info-container {
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+    font-size: 1.4em;
+    gap: 10px;
+    padding: 10px;
+}
+
+#info-container label {
+    grid-column: 1;
+}
+
+#info-container p, #info-container a {
+    grid-column: 2 / span 2;
+    width: fit-content;
+}
+
+
+
+#info-container #maxclicks {
+    width: 80px;
+    height: 24px;
+    text-align: right;
+    font-size: 1em;
+    background-color: #0000;
+    color: white;
+    border: none;
+    border-bottom: 1px solid var(--primary);
+}
+
+#info-container label {
+    align-self: center;
+}
+
+#info-container #expiry-toggle {
+    display: inline;
+    grid-row: 5;
+    grid-column: 2;
+    width: 20px;
+    height: 20px;
+    align-self: center;
+}
+
+#info-container #expiry-date {
+    grid-column: 2;
+    width: 150px;
+    grid-row: 5;
+    margin-left: 95px;
+}
+
+#info-container #date-label {
+    grid-column: 2;
+    grid-row: 5;
+    align-self: center;
+    color: #aaa;
+    margin-left: 40px;
+}
+
+#info-container #time-label {
+    grid-column: 2;
+    grid-row: 5;
+    align-self: center;
+    color: #aaa;
+    margin-left: 270px;
+}
+
+#info-container #expiry-hour, #info-container #expiry-minute {
+    margin-left: 330px;
+    grid-column: 2;
+    grid-row: 5;
+    width: 50px;
+}
+
+.info {
+    height: 25px;
+    width: 25px;
+    align-self: center;
+    margin-left: auto;
+    margin-right: 50px;
+}
+
+#maxclicks-label {
+    grid-column: 1;
+    grid-row: 4;
+
+}
+
+#maxclicks-info {
+    grid-column: 1;
+    grid-row: 4;
+}
+
+#expiry-label {
+    grid-column: 1;
+    grid-row: 5;
+}
+
+#expiry-info {
+    grid-column: 1;
+    grid-row: 5;
+}
+
+#info-container #expiry-minute {
+    margin-left: 390px;
+}
+
+#info-container #time-separator {
+    font-size: 30px;
+    grid-column: 2;
+    grid-row: 5;
+    color: #aaa;
+    margin-left: 381px;
+}
+
+#info-container #created {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    grid-column: 2;
+    grid-row: 1;
+    &::before {
+        content: 'Created: ';
+        font-size: 0.6em;
+        color: #aaa;
+    }
+}
+
+#info-container #updated {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    grid-column: 2;
+    margin-left: 360px;
+    grid-row: 1;
+    &::before {
+        content: 'Updated: ';
+        font-size: 0.6em;
+        color: #aaa;
+    }
+}
+
+#info-container #timestamp-label {
+    grid-column: 1;
+    grid-row: 1;
+    align-self: end;
+}
+
+#info-container #expiry-date, #info-container #expiry-hour, #info-container #expiry-minute {
+    font-size: 1em;   
+}
+
+#info-container button {
+    grid-row: 6;
+}
+
+#timestamp-label, #destination-label, #URL-label, #maxclicks-label {
+    &::after {
+        content: '';
+        display: flex;
+        height: 1px;
+        background-color: #888;
+        width: 500%;
+        transform: translateY(5px);
+    }
+}
+
+a button {
+    background: none;
+    border: none;
+    align-self: center;
+    font-size: 0.8em;
+    cursor: pointer;
 }

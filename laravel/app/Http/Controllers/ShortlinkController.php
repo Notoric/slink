@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Link_interaction;
 use Illuminate\Http\Request;
 use App\Models\Shortlink;
 use GuzzleHttp\Client;
@@ -45,12 +46,73 @@ class ShortlinkController extends Controller
         }
     }
 
-    public function goto(Request $request, $id) {
+    public static function goto(Request $request, $id) {
         try {
             $shortlink = (new Shortlink())->get($id);
             // check if the link is expired or if it has reached the max clicks
+            if ($shortlink->expires_at != null && strtotime($shortlink->expires_at) < time()) {
+                return response()->json(['error' => 'This link has expired'], 404);
+            }
+
+            if ($shortlink->max_clicks != null && $shortlink->max_clicks <= (new Link_interaction())->getTotalInteractions($id)) {
+                return response()->json(['error' => 'This link has reached the maximum number of clicks'], 404);
+            }
+
             // log the interaction
+            [Link_interactionController::class, 'access']($request);
+
             return redirect($shortlink->destination);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 404);
+        }
+    }
+
+    public function getDetails(Request $request, $id) {
+        try {
+            $shortlink = (new Shortlink())->get($id);
+            if ($shortlink->user_id != auth()->id()) {
+                return response()->json(['error' => 'Unauthorized'], 401);
+            }
+            $countrylist = (new Link_interactionController)->getCountryArray($id);
+            return view('details', ['shortlink' => $shortlink, 'countrylist' => $countrylist]);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 404);
+        }
+    }
+
+    public function update(Request $request, $id) {
+        try {
+            $shortlink = (new Shortlink())->get($id);
+            if ($shortlink->user_id != auth()->id()) {
+                return response()->json(['error' => 'Unauthorized'], 401);
+            }
+            $request['expiry-toggle'] = $request->input('expiry-toggle') == 'on';
+            $data = $request->validate([
+                'maxclicks' => 'required|integer|min:0',
+                'expiry-toggle' => 'required|boolean'
+            ]);
+            if ($request->input('expiry-toggle')) {
+                $request->validate([
+                    'expiry-date' => 'date_format:Y-m-d|required',
+                    'expiry-hour' => 'date_format:H|min:0|max:23|required',
+                    'expiry-minute' => 'date_format:i|min:0|max:59|required'
+                ]);
+                $request->expires_at = \DateTime::createFromFormat('Y-m-d H:i', $request['expiry-date'] . ' ' . $request['expiry-hour'] . ':' . $request['expiry-minute']);
+            } else {
+                $request->expires_at = null;
+            }
+            $shortlink->modify($request->maxclicks, $request->expires_at);
+            return back();
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 400);
+        }
+    }
+
+    public function delete(Request $request, $id) {
+        try {
+            $shortlink = (new Shortlink())->get($id);
+            $shortlink->delete();
+            return redirect('profile');
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 404);
         }

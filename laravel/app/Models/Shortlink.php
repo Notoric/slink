@@ -10,11 +10,13 @@ class Shortlink extends Model
     use HasFactory;
 
     protected $fillable = [
+        'id',
         'shortid',
         'destination',
         'user_id',
         'max_clicks',
         'expires_at',
+        'deleted'
     ];
 
     public function create(string $url, int $user_id): Shortlink {
@@ -23,6 +25,7 @@ class Shortlink extends Model
         $this->user_id = $user_id;
         $this->max_clicks = 0;
         $this->expires_at = null;
+        $this->deleted = false;
         $this->save();
         return $this;
     }

@@ -9,11 +9,11 @@
     <body>
         <header>
             <div class="container">
-                <a id="logo" href="home">[slink]</a>
+                <a id="logo" href="/home">[slink]</a>
                 @if (Auth::check())
                     <nav>
-                        <a href="profile"><img src="{{ asset('img/icons/profile.svg') }}"></a>
-                        <a href="logout"><img src="{{ asset('img/icons/logout.svg') }}"></a>
+                        <a href="profile"><img title="Profile" src="{{ asset('img/icons/profile.svg') }}"></a>
+                        <a href="logout"><img title="Logout" src="{{ asset('img/icons/logout.svg') }}"></a>
                     </nav>
                 @else
                     <nav>
@@ -26,5 +26,6 @@
         <main>
             @yield('content')
         </main>
+        @yield('scripts')
     </body>
 </html>
