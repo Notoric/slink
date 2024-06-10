@@ -9,7 +9,7 @@
     <body>
         <header>
             <div class="container">
-                <a id="logo" href="home">[Notoric]</a>
+                <a id="logo" href="home">[slink]</a>
                 @if (Auth::check())
                     <nav>
                         <a href="profile"><img src="{{ asset('img/icons/profile.svg') }}"></a>

@@ -1,2 +1,2 @@
-# URL Shortener
-This is my first project in laravel.
+# slink
+Slink is a URL Shortener written in Laravel.
