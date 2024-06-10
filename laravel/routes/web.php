@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\ShortlinkController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -44,3 +45,9 @@ Route::get('/home', function () {
     }
     return view('home');
 });
+
+Route::post('/shorten', [ShortlinkController::class, 'create']);
+
+// Route::get('/l/{id}', );
+
+Route::get('/{id}', [ShortlinkController::class, 'goto']);

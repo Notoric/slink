@@ -121,3 +121,44 @@ header nav a {
     border-radius: 5px;
     padding: 10px;
 }
+
+#shortener-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 60px 50px;
+    background-color: var(--primary);
+    width: calc(100% - 100px);
+    gap: 40px;
+}
+
+#shortener-container h1 {
+    font-size: 2.5em;
+    color: white;
+}
+
+#shortener-container input {
+    color: black;
+    background-color: #fff;
+    border-radius: 5px;
+    font-size: 1.3em;
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 0;
+    width: 600px;
+    box-shadow: 2px 2px 5px 0 #0004;
+}
+
+#shortener-container button {
+    font-size: 1.3em;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    box-shadow: 2px 2px 5px 0 #0004;
+    background-color: var(--foreground);
+}
+
+#shortener-container input::placeholder {
+    color: #aaa;
+}
