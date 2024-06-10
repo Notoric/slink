@@ -33,12 +33,7 @@ Route::get('/logout', function () {
     return redirect('home');
 });
 
-Route::get('/profile', function () {
-    if (!auth()->check()) {
-        return redirect('home');
-    }
-    return view('profile');
-});
+Route::get('/profile', [ShortlinkController::class, 'getLinksByUser']);
 
 Route::get('/home', function () {
     if (!auth()->check()) {
@@ -49,7 +44,7 @@ Route::get('/home', function () {
 
 Route::post('/shorten', [ShortlinkController::class, 'create']);
 
-Route::get('/l/{id}/details', [Link_interactionController::class, 'getCountryArray']);
+Route::post('/l/{id}/update', [ShortlinkController::class, 'update']);
 
 Route::get('/l/{id}', [ShortlinkController::class, 'getDetails']);
 

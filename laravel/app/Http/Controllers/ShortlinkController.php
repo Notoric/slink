@@ -48,7 +48,7 @@ class ShortlinkController extends Controller
 
     public static function goto(Request $request, $id) {
         try {
-            $shortlink = (new Shortlink())->get($id);
+            $shortlink = Shortlink::where('shortid', $id)->first();
             // check if the link is expired or if it has reached the max clicks
             if ($shortlink->expires_at != null && strtotime($shortlink->expires_at) < time()) {
                 return response()->json(['error' => 'This link has expired'], 404);
@@ -69,7 +69,7 @@ class ShortlinkController extends Controller
 
     public function getDetails(Request $request, $id) {
         try {
-            $shortlink = (new Shortlink())->get($id);
+            $shortlink = Shortlink::where('shortid', $id)->first();
             if ($shortlink->user_id != auth()->id()) {
                 return response()->json(['error' => 'Unauthorized'], 401);
             }
@@ -82,7 +82,7 @@ class ShortlinkController extends Controller
 
     public function update(Request $request, $id) {
         try {
-            $shortlink = (new Shortlink())->get($id);
+            $shortlink = Shortlink::where('shortid', $id)->first();
             if ($shortlink->user_id != auth()->id()) {
                 return response()->json(['error' => 'Unauthorized'], 401);
             }
@@ -110,11 +110,19 @@ class ShortlinkController extends Controller
 
     public function delete(Request $request, $id) {
         try {
-            $shortlink = (new Shortlink())->get($id);
+            $shortlink = Shortlink::where('shortid', $id)->first();
             $shortlink->delete();
             return redirect('profile');
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 404);
         }
+    }
+
+    public function getLinksByUser(Request $request) {
+        if (auth()->user() == null) {
+            return redirect('home');
+        }
+        $shortlinks = Shortlink::where('user_id', auth()->id())->get();
+        return view('profile', ['shortlinks' => $shortlinks]);
     }
 }

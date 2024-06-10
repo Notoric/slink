@@ -30,14 +30,6 @@ class Shortlink extends Model
         return $this;
     }
 
-    public function get(string $id): Shortlink {
-        $shortlink = Shortlink::where('shortid', $id)->first();
-        if ($shortlink == null) {
-            throw new \Exception('This shortened link does not exist');
-        }
-        return $shortlink;
-    }
-
     public function delete(): void {
         Shortlink::where('shortid', $this->id)->delete();
     }
