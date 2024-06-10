@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Shortlink;
+use GuzzleHttp\Client;
 
 class ShortlinkController extends Controller
 {
@@ -18,6 +19,21 @@ class ShortlinkController extends Controller
             ]);
     
             //check if url returns 200 at its final redirect
+            $guzzle = new Client([
+                'timeout' => 5
+            ]);
+            try {
+                $response = $guzzle->get($request->url, ['allow_redirects' => ['track_redirects' => true]]);
+                if ($response->getStatusCode() != 200) {
+                    return back()->withErrors([
+                        'error' => 'The URL provided did not return a valid response'
+                    ]);
+                }
+            } catch (\Exception $e) {
+                return back()->withErrors([
+                    'error' => 'The URL provided did not return a valid response'
+                ]);
+            }
 
             $shortlink = new Shortlink();
             $shortlink->create($request->url, auth()->id());
@@ -27,7 +43,6 @@ class ShortlinkController extends Controller
                 'error' => $e->getMessage()
             ]);
         }
-
     }
 
     public function goto(Request $request, $id) {
