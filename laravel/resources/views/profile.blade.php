@@ -17,7 +17,7 @@
         </tr>
         @foreach ($shortlinks as $shortlink)
             <tr>
-                <td>{{ $shortlink['shortid'] }}</td>
+                <td><a href="{{ url()->to("l/" . $shortlink->shortid) }}">{{ $shortlink['shortid'] }}</a></td>
                 <td>{{ $shortlink['destination'] }}</td>
                 <td>{{ $shortlink['created_at'] }}</td>
             </tr>

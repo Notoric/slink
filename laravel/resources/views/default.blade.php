@@ -26,6 +26,10 @@
         <main>
             @yield('content')
         </main>
+        <footer>
+            <p>Find the repository on <a href="https://github.com/Notoric/slink">GitHub</a></p>
+            <p>Made by <a href="https://notoric.net">[Notoric]</a></p>
+        </footer>
         @yield('scripts')
     </body>
 </html>

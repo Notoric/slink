@@ -78,7 +78,7 @@
         </div>
     </div>
     <div id="stats" class="container">
-        <h2>Link Clicks</h2>
+        <h2>Clicks by Country</h2>
         <table>
             <thead>
                 <th>📍</th>

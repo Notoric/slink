@@ -14,6 +14,9 @@ body {
     font-family: 'Roboto', sans-serif;
     background-color: var(--background);
     color: white;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
 input:focus {
@@ -372,7 +375,7 @@ a button {
     justify-content: space-between;
 }
 
-#graphs h2 {
+#graphs h2, #stats h2 {
     margin-bottom: 20px;
 }
 
@@ -381,3 +384,52 @@ a button {
     height: 400px;
 }
 
+table {
+    font-size: 1.5em;
+    border-collapse: collapse;
+}
+
+table td, table th {
+    padding: 10px;
+    margin: 0;
+    gap: 0;
+    border: 0;
+}
+
+table td {
+    border-top: 1px solid #888;
+}
+
+table th, table td {
+    border-right: 1px solid #888;
+}
+
+table th:last-child, table td:last-child, table th:first-child, table td:first-child{
+    text-align: center;
+}
+
+table th:last-child, table td:last-child {
+    border-right: none;
+}
+
+table {
+    margin-bottom: 40px;
+}
+
+footer {
+    margin-top: auto;
+    height: 50px;
+    background: var(--foreground);
+    width: calc(100vw - 60px);
+    color: white;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-left: 30px;
+    padding-right: 30px;
+    bottom: 0;
+}
+  
+footer p {
+    width: auto;
+}
