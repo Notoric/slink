@@ -161,10 +161,10 @@
             data: {
                 labels: labels,
                 datasets: [{
-                    label: 'Cumulative Count',
+                    label: 'Total Clicks',
                     data: data,
-                    borderColor: 'rgba(75, 192, 192, 1)',
-                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(255, 0, 80, 1)',
+                    backgroundColor: 'rgba(255, 0, 80, 0.2)',
                     borderWidth: 1,
                     fill: true
                 }]

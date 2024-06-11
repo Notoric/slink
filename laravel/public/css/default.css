@@ -353,7 +353,7 @@ header nav a {
         display: flex;
         height: 1px;
         background-color: #888;
-        width: 500%;
+        width: calc(500% + 20px);
         transform: translateY(5px);
     }
 }
