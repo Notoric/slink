@@ -10,8 +10,8 @@
 
 @section('content')
     <div id="banner-container" class="container">
-        <h1>Details & Logs</h1>
-        <p>View and edit information for your link</p>
+        <h1>Details & Stats</h1>
+        <p>View and edit information about your link</p>
     </div>
     <div id="details" class="container">
         <h2>Details</h2>
