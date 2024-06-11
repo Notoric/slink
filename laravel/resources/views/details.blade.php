@@ -4,6 +4,10 @@
     Details & Logs
 @endsection
 
+@section('head')
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+@endsection
+
 @section('content')
     <div id="banner-container" class="container">
         <h1>Details & Logs</h1>
@@ -64,7 +68,14 @@
         </form>
     </div>
     <div id="graphs" class="container">
-
+        <div id="map-wrapper">
+            <h2>Heatmap</h2>
+            <div id="map"></div>
+        </div>
+        <div id="timeline-wrapper">
+            <h2>Timeline</h2>
+            <canvas id="cumulativeGraph" width="540" height="400"></canvas>
+        </div>
     </div>
     <div id="stats" class="container">
         <h2>Link Clicks</h2>
@@ -87,4 +98,91 @@
 
 @section('scripts')
     <script src="{{ asset('js/details.js') }}"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet.heat/dist/leaflet-heat.js"></script>
+    <script>
+        var map = L.map('map').setView([50, 0], 3);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 10,
+        }).addTo(map);
+        var heat = L.heatLayer([], {
+            radius: 50,
+            blur: 20,
+            maxZoom: 3,
+            max: 5,
+        }).addTo(map);
+
+        async function loadHeatmapData() {
+            var data = [
+                @foreach ($coordinates as $coordinate)
+                    {lat:{{ $coordinate['latitude'] }}, lng:{{ $coordinate['longitude'] }}},
+                @endforeach
+            ];
+            heat.setLatLngs(data);
+        }
+        loadHeatmapData();
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns"></script>
+    <script>
+        const timestamps = [
+            @foreach ($timestamps as $timestamp)
+                '{{ $timestamp['created_at'] }}',
+            @endforeach
+        ];
+
+        // Function to count occurrences cumulatively
+        function getCumulativeCounts(timestamps) {
+            const counts = [];
+            const dateCounts = {};
+            timestamps.forEach((timestamp) => {
+                const date = new Date(timestamp).toISOString(); // Get date part only
+                if (dateCounts[date]) {
+                    dateCounts[date]++;
+                } else {
+                    dateCounts[date] = 1;
+                }
+                counts.push({ date: date, count: Object.values(dateCounts).reduce((a, b) => a + b, 0) });
+            });
+            return counts;
+        }
+
+        // Get the cumulative data
+        const cumulativeData = getCumulativeCounts(timestamps);
+
+        // Extract dates and counts for the chart
+        const labels = cumulativeData.map(data => data.date);
+        const data = cumulativeData.map(data => data.count);
+
+        // Create the chart
+        const ctx = document.getElementById('cumulativeGraph').getContext('2d');
+        const cumulativeGraph = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Cumulative Count',
+                    data: data,
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderWidth: 1,
+                    fill: true
+                }]
+            },
+            options: {
+                scales: {
+                    x: {
+                        type: 'time',
+                        time: {
+                            unit: 'day'
+                        }
+                    },
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+    
 @endsection

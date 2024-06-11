@@ -78,16 +78,21 @@ class Link_interaction extends Model
         return $link_interaction;
     }
 
-    public function getTimes(string $link) {
+    public static function getTimes(string $link) {
         $link_interaction = [];
         $link_interaction = Link_interaction::where('link', $link)->select('created_at')->get()->toArray();
         return $link_interaction;
     }
 
-    public function getCoordinates(string $link) {
-        $link_interaction = [];
+    public static function getCoordinates(string $link) {
+        $coordinates = [];
         $link_interaction = Link_interaction::where('link', $link)->select('latitude', 'longitude')->get()->toArray();
-        return $link_interaction;
+        foreach ($link_interaction as $interaction) {
+            if ($interaction['latitude'] != null && $interaction['longitude'] != null) {
+                array_push($coordinates, $interaction);
+            }
+        }
+        return $coordinates;
     }
 
 }

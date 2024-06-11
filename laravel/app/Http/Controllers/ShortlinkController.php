@@ -74,7 +74,9 @@ class ShortlinkController extends Controller
                 return response()->json(['error' => 'Unauthorized'], 401);
             }
             $countrylist = (new Link_interactionController)->getCountryArray($id);
-            return view('details', ['shortlink' => $shortlink, 'countrylist' => $countrylist]);
+            $coordinates = Link_interaction::getCoordinates($id);
+            $timestamps = Link_interaction::getTimes($id);
+            return view('details', ['shortlink' => $shortlink, 'countrylist' => $countrylist, 'coordinates' => $coordinates, 'timestamps' => $timestamps]);
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 404);
         }

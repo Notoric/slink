@@ -10,6 +10,7 @@
 body {
     margin: 0;
     overflow: hidden;
+    overflow-y: scroll;
     font-family: 'Roboto', sans-serif;
     background-color: var(--background);
     color: white;
@@ -364,3 +365,19 @@ a button {
     font-size: 0.8em;
     cursor: pointer;
 }
+
+#graphs {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+#graphs h2 {
+    margin-bottom: 20px;
+}
+
+#map {
+    width: 540px;
+    height: 400px;
+}
+
