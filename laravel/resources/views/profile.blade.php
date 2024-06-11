@@ -19,7 +19,7 @@
             <tr>
                 <td><a href="{{ url()->to("l/" . $shortlink->shortid) }}">{{ $shortlink['shortid'] }}</a></td>
                 <td>{{ $shortlink['destination'] }}</td>
-                <td>{{ $shortlink['created_at'] }}</td>
+                <td>{{ Carbon\Carbon::parse($shortlink->created_at)->format('M jS Y') }}</td>
             </tr>
         @endforeach
     </table>
