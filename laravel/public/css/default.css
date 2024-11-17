@@ -200,7 +200,7 @@ header nav a {
     grid-template-columns: 1fr 4fr;
     font-size: 1.4em;
     gap: 10px;
-    padding: 10px;
+    padding: 15px;
 }
 
 #info-container label {
@@ -210,6 +210,7 @@ header nav a {
 #info-container p, #info-container a {
     grid-column: 2 / span 2;
     width: fit-content;
+    overflow-wrap: break-word;
 }
 
 
@@ -226,7 +227,7 @@ header nav a {
 }
 
 #info-container label {
-    align-self: center;
+    align-self: end;
 }
 
 #info-container #expiry-toggle {
@@ -274,6 +275,7 @@ header nav a {
     align-self: center;
     margin-left: auto;
     margin-right: 50px;
+    cursor: help;
 }
 
 #maxclicks-label {
@@ -310,6 +312,7 @@ header nav a {
 }
 
 #info-container #created {
+    font-size: 0.9em;
     margin: 0;
     display: flex;
     flex-direction: column;
@@ -323,6 +326,7 @@ header nav a {
 }
 
 #info-container #updated {
+    font-size: 0.9em;
     margin: 0;
     display: flex;
     flex-direction: column;
@@ -361,7 +365,11 @@ header nav a {
     }
 }
 
-a button {
+#destination {
+    max-width: 850px;
+}
+
+button {
     background: none;
     border: none;
     align-self: center;
