@@ -14,19 +14,27 @@
         <p>Created at: <em>{{ Auth::user()->created_at }}</em></p>
     </div>
     <div id="table-container" class="container">
+        <h2>My Short URLs</h2>
         <table>
-            <tr>
-                <th>Link</th>
-                <th>Destination</th>
-                <th>Created at</th>
-            </tr>
-            @foreach ($shortlinks as $shortlink)
+            <tbody>
                 <tr>
-                    <td><a href="{{ url()->to("l/" . $shortlink->shortid) }}">{{ $shortlink['shortid'] }}</a></td>
-                    <td>{{ $shortlink['destination'] }}</td>
-                    <td>{{ Carbon\Carbon::parse($shortlink->created_at)->format('M jS Y') }}</td>
+                    <th>Link</th>
+                    <th>Destination</th>
+                    <th>Created at</th>
                 </tr>
-            @endforeach
+                @foreach ($shortlinks as $shortlink)
+                    <tr>
+                        <td><a href="{{ url()->to("l/" . $shortlink->shortid) }}">{{ $shortlink['shortid'] }}</a></td>
+                        <td class="table-truncate"><div class="destination">{{ $shortlink['destination'] }}</div></td>
+                        <td>{{ Carbon\Carbon::parse($shortlink->created_at)->format('M jS Y') }}</td>
+                    </tr>
+                @endforeach
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="3"><a href="/home">Shorten a new link</a></td>
+                </tr>
+            </tfoot>
         </table>
     </div>
 @endsection

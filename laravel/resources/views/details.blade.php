@@ -36,6 +36,8 @@
                 <input id="expiry-date" name="expiry-date" type="date" 
                     @if ($shortlink->expires_at != null)
                         value="{{ Carbon\Carbon::parse($shortlink->expires_at)->format('Y-m-d') }}"
+                    @else
+                        value="{{ Carbon\Carbon::now()->format('Y-m-d') }}"
                     @endif
                 >
                 <label id="time-label" for="expiry-hour">Time</label>

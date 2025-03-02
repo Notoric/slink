@@ -383,7 +383,7 @@ button {
     justify-content: space-between;
 }
 
-#graphs h2, #stats h2 {
+#graphs h2, #stats h2, #table-container h2 {
     margin-bottom: 20px;
 }
 
@@ -407,6 +407,14 @@ table td, table th {
 
 table td {
     border-top: 1px solid #888;
+    white-space: nowrap;
+}
+
+table td.table-truncate {
+    white-space: normal;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-break: break-all;
 }
 
 table th, table td {
@@ -419,6 +427,11 @@ table th:last-child, table td:last-child, table th:first-child, table td:first-c
 
 table th:last-child, table td:last-child {
     border-right: none;
+}
+
+.destination {
+    height: 1.2em;
+    overflow: hidden;
 }
 
 footer {

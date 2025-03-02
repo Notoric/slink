@@ -14,6 +14,12 @@ class ShortlinkController extends Controller
             return response()->json(['error' => 'Unauthorized'], 401);
         }
 
+        if (strlen($request->url) > 5000) {
+            return back()->withErrors([
+                'error' => 'The URL provided is too long'
+            ]);
+        }
+
         try {
             $request->validate([
                 'url' => 'required|url'
@@ -41,7 +47,7 @@ class ShortlinkController extends Controller
             return redirect("/l/{$shortlink->shortid}");
         } catch (\Exception $e) {
             return back()->withErrors([
-                'error' => $e->getMessage()
+                'error' => 'An error occurred while creating the shortlink'
             ]);
         }
     }

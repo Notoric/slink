@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('shortlinks', function (Blueprint $table) {
             $table->id();
             $table->string('shortid')->unique();
-            $table->string('destination');
+            $table->string('destination', 5000);
             $table->foreignId('user_id')->references('id')->on('users');
             $table->integer('max_clicks')->default(0);
             $table->boolean('deleted')->default(false);
