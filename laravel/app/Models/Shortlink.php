@@ -40,9 +40,9 @@ class Shortlink extends Model
         $this->save();
     }
 
-    function generateNewId(int $length = 6): string {
+    function generateNewId(int $length = 5): string {
         $characters = 'qwrtypsdfghjklzxcvbnmQWRTYPSDFGHJKLZXCVBNM256789_';
-        // try n x 2 times to generate a new id, if it finds an id, return it, otherwise, try to look for an id of length + 1
+        // try n x 2 times to generate a new id, if it finds an id, return it, otherwise, try to look for an id of length n + 1
         for ($i = 0; $i < $length * 2; $i++) {
             $id = '';
             for ($i = 0; $i < $length; $i++) {

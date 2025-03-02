@@ -5,22 +5,28 @@
 @endsection
 
 @section('content')
-    <h1>Profile</h1>
-    <p>Username: <em>{{ Auth::user()->name }}</em></p>
-    <p>Email: <em>{{ Auth::user()->email }}</em></p>
-    <p>Created at: <em>{{ Auth::user()->created_at }}</em></p>
-    <table>
-        <tr>
-            <th>Link</th>
-            <th>Destination</th>
-            <th>Created at</th>
-        </tr>
-        @foreach ($shortlinks as $shortlink)
+    <div id="title-container" class="container">
+        <h1>Profile</h1>
+    </div>
+    <div id="profile-container" class="container">
+        <p>Username: <em>{{ Auth::user()->name }}</em></p>
+        <p>Email: <em>{{ Auth::user()->email }}</em></p>
+        <p>Created at: <em>{{ Auth::user()->created_at }}</em></p>
+    </div>
+    <div id="table-container" class="container">
+        <table>
             <tr>
-                <td><a href="{{ url()->to("l/" . $shortlink->shortid) }}">{{ $shortlink['shortid'] }}</a></td>
-                <td>{{ $shortlink['destination'] }}</td>
-                <td>{{ Carbon\Carbon::parse($shortlink->created_at)->format('M jS Y') }}</td>
+                <th>Link</th>
+                <th>Destination</th>
+                <th>Created at</th>
             </tr>
-        @endforeach
-    </table>
+            @foreach ($shortlinks as $shortlink)
+                <tr>
+                    <td><a href="{{ url()->to("l/" . $shortlink->shortid) }}">{{ $shortlink['shortid'] }}</a></td>
+                    <td>{{ $shortlink['destination'] }}</td>
+                    <td>{{ Carbon\Carbon::parse($shortlink->created_at)->format('M jS Y') }}</td>
+                </tr>
+            @endforeach
+        </table>
+    </div>
 @endsection
