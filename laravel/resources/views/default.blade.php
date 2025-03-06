@@ -7,6 +7,11 @@
         @yield('head')
     </head>
     <body>
+        <style>
+            :root {
+                --primary: {{ config('user-config.accent_color') }};
+            }
+        </style>
         <header>
             <div class="container">
                 <a id="logo" href="/home">[slink]</a>
@@ -26,9 +31,14 @@
         <main>
             @yield('content')
         </main>
+        @php
+            $footer = [];
+            $footer['left'] = config('user-config.footer_left');
+            $footer['right'] = config('user-config.footer_right');
+        @endphp
         <footer>
-            <p>Find the repository on <a href="https://github.com/Notoric/slink">GitHub</a></p>
-            <p>Made by <a href="https://notoric.net">[Notoric]</a></p>
+            <p>{!! $footer['left'] !!}</p>
+            <p>{!! $footer['right'] !!}</p>
         </footer>
         @yield('scripts')
     </body>
