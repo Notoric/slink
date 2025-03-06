@@ -14,7 +14,7 @@
         </style>
         <header>
             <div class="container">
-                <a id="logo" href="/home">[slink]</a>
+                <a id="logo" href="/home">{!! config('user-config.logo') !!}</a>
                 @if (Auth::check())
                     <nav>
                         <a href="/profile"><img title="Profile" src="{{ asset('img/icons/profile.svg') }}"></a>
