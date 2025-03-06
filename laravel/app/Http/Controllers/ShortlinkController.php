@@ -115,7 +115,7 @@ class ShortlinkController extends Controller
             return response()->json(['error' => $e->getMessage()], 400);
         }
     }
-
+    //TODO: Change to toggle on the delete method, and prevent deleted items from being modified or accessed
     public function delete(Request $request, $id) {
         try {
             $shortlink = Shortlink::where('shortid', $id)->first();

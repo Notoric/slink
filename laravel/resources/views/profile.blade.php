@@ -8,7 +8,7 @@
     <div id="title-container" class="container">
         <h1>Profile</h1>
     </div>
-    <div id="profile-container" class="container">
+    <div id="profile-container" class="container"> <!-- TODO: Add ability to change & reverify email -->
         <p>Username: <em>{{ Auth::user()->name }}</em></p>
         <p>Email: <em>{{ Auth::user()->email }}</em></p>
         <p>Created at: <em>{{ Auth::user()->created_at }}</em></p>
