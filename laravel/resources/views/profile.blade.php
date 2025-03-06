@@ -14,7 +14,7 @@
             <label for="email">Email</label>
             <input type="email" name="email" id="email" value="{{ Auth::user()->email }}" required>
             <label for="created_at">Created On</label>
-            <input type="text" name="created_at" id="created_at" class="unmodifiable" value="{{ explode( " ", Auth::user()->created_at)[0] }}" required readonly>
+            <input type="text" name="created_at" id="created_at" class="unmodifiable" value="{{ Carbon\Carbon::parse(explode( " ", Auth::user()->created_at)[0])->format('D jS F Y') }}" required readonly>
             <div class="button-row">
                 <button type="submit">Save</button>
                 <a href="profile/change-password"><button type="button">Change Password</button></a>
