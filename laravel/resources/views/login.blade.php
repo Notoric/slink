@@ -10,7 +10,7 @@
         <form method="post" action="login">
             @csrf
             <label for="email">Email</label>
-            <input type="email" name="email" id="email" value="{{ old('email') }}" required>
+            <input type="email" name="email" id="email" value="{{ old('email') }}">
             <label for="password">Password</label>
             <input type="password" name="password" id="password" required>
             <button type="submit">Log In</button>

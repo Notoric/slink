@@ -5,13 +5,27 @@
 @endsection
 
 @section('content')
-    <div id="title-container" class="container">
+    <div id="profile-container" class="form-container"> <!-- TODO: Add ability to change & reverify email -->
         <h1>Profile</h1>
-    </div>
-    <div id="profile-container" class="container"> <!-- TODO: Add ability to change & reverify email -->
-        <p>Username: <em>{{ Auth::user()->name }}</em></p>
-        <p>Email: <em>{{ Auth::user()->email }}</em></p>
-        <p>Created at: <em>{{ Auth::user()->created_at }}</em></p>
+        <form method="post" action="profile/update">
+            @csrf
+            <label for="name">Username</label>
+            <input type="text" name="name" id="name" value="{{ Auth::user()->name }}" required>
+            <label for="email">Email</label>
+            <input type="email" name="email" id="email" value="{{ Auth::user()->email }}" required>
+            <label for="created_at">Created On</label>
+            <input type="text" name="created_at" id="created_at" class="unmodifiable" value="{{ explode( " ", Auth::user()->created_at)[0] }}" required readonly>
+            <div class="button-row">
+                <button type="submit">Save</button>
+                <a href="profile/change-password"><button type="button">Change Password</button></a>
+            </div>
+            @if ($errors->any())
+                <p class="error">{{ $errors->first() }}</p>
+            @endif
+            @if (session('success'))
+                <p class="success">{{ session('success') }}</p>
+            @endif
+        </form>
     </div>
     <div id="table-container" class="container">
         <h2>My Short URLs</h2>

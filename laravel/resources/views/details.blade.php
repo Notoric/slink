@@ -19,9 +19,9 @@
             @csrf
             <div id="info-container">
                 <label id="destination-label" for="destination">Destination</label>
-                <a href="{{ $shortlink->destination }}" target="_blank" id="destination">{{ $shortlink->destination }}<button title="Copy Link" id="destination_clipboard">🔗</button></a>
+                <a href="{{ $shortlink->destination }}" target="_blank" id="destination"><button title="Copy Link" id="destination_clipboard">🔗</button>{{ $shortlink->destination }}</a>
                 <label id="URL-label" for="url">URL</label>
-                <a href="{{ url()->to($shortlink->shortid) }}" target="_blank" id="url">{{ url()->to($shortlink->shortid) }}<button title="Copy Link" id="url_clipboard">🔗</button></a>
+                <a href="{{ url()->to($shortlink->shortid) }}" target="_blank" id="url"><button title="Copy Link" id="url_clipboard">🔗</button>{{ url()->to($shortlink->shortid) }}</a>
                 <label id="maxclicks-label" for="maxclicks">Max Clicks</label>
                 <img id="maxclicks-info" class="info" src="{{ asset("img/icons/info.svg") }}" title="This link will stop working after the maximum number of clicks has been reached. Set this to 0 to allow an infinite number of uses.">
                 <input id="maxclicks" name="maxclicks" type="number" value="{{ $shortlink->max_clicks }}" required>
@@ -87,12 +87,28 @@
                 <th>Country</th>
                 <th>Clicks</th>
             </thead>
+            @php
+                $total = 0;
+                $rows = [];
+            @endphp
             @foreach ($countrylist as $country)
-                <tr>
-                    <td>{{ $country['emoji'] }}</td>
-                    <td>{{ $country['country'] ?? 'Unknown' }}</td>
-                    <td>{{ $country['total'] }}</td>
-                </tr>
+                @php
+                    $total += $country['total'];
+                    $row = "<tr>
+                                <td>" . $country['emoji'] . "</td>
+                                <td>" . ($country['country'] ?? 'Unknown') . "</td>
+                                <td>" . $country['total'] . "</td>
+                            </tr>";
+                    array_push($rows, $row);
+                @endphp
+            @endforeach
+            <tr>
+                <td>🌎</td>
+                <td>Total</td>
+                <td>{{ $total }}</td>
+            </tr>
+            @foreach ($rows as $row)
+                {!! $row !!}
             @endforeach
         </table>
     </div>

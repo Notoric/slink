@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ShortlinkController;
+use App\Http\Controllers\ProfileController;
 
 Route::get('/', function () {
     return redirect('/home');
@@ -34,6 +35,17 @@ Route::get('/logout', function () {
 });
 
 Route::get('/profile', [ShortlinkController::class, 'getLinksByUser']);
+
+Route::get('/profile/change-password', function () {
+    if (!auth()->check()) {
+        return redirect('login');
+    }
+    return view('profile-change-password');
+});
+
+Route::post('/profile/update', [ProfileController::class, 'update']);
+
+Route::post('/profile/change-password/update', [ProfileController::class, 'updatePassword']);
 
 Route::get('/home', function () {
     if (!auth()->check()) {
