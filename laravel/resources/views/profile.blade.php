@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-    <div id="profile-container" class="form-container"> <!-- TODO: Add ability to change & reverify email -->
+    <div id="profile-container" class="form-container"> <!-- TODO: Add ability to verify/reverify email -->
         <h1>Profile</h1>
         <form method="post" action="profile/update">
             @csrf
